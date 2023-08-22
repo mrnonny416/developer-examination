@@ -2,6 +2,20 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "mangodb": "^1.0.0",
     "mongoose": "^7.4.3"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "name": "api",
+  "version": "1.0.0",
+  "main": "app.js",
+  "keywords": [],
+  "author": "mrnonny416",
+  "license": "ISC",
+  "description": "For exam"
 }
