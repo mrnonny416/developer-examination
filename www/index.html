@@ -11,64 +11,149 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body>
+<body class="bg-dark text-dark">
     <div class="content-page">
         <div class="content" id="content">
             <div class="container-fluid ">
-                <!-- Insert Modal -->
-                <!-- Button modal -->
-                <button type="button" class="btn btn-primary" id="insertButton">
-                    Insert New Item
-                </button>
 
-                <!-- Modal -->
+
+
+                <!-- Insert Modal -->
                 <div class="modal fade" id="insertModal" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="InsertModalLabel">Insert Data for item</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <h5 class="modal-title" id="insertModalLabel">Insert Data for item</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    onclick="clearInsert()"></button>
                             </div>
                             <div class="modal-body">
                                 <form>
                                     <div class="mb-3">
                                         <label for="itemName" class="form-label">Item Name</label>
-                                        <input type="text" class="form-control" id="itemName">
+                                        <input type="text" class="form-control" id="insertItemName">
                                     </div>
                                     <div class="mb-3">
                                         <label for="itemPrice" class="form-label">Item Price</label>
-                                        <input type="number" class="form-control" id="itemPrice">
+                                        <input type="number" class="form-control" id="insertItemPrice">
                                     </div>
                                     <div class="mb-3">
                                         <label for="itemQuantity" class="form-label">Item Quantity</label>
-                                        <input type="number" class="form-control" id="itemQuantity">
+                                        <input type="number" class="form-control" id="insertItemQuantity">
                                     </div>
                                     <div class="mb-3">
                                         <label for="itemDescription" class="form-label">Item Description</label>
-                                        <textarea class="form-control" id="itemDescription"></textarea>
+                                        <textarea class="form-control" id="insertItemDescription"></textarea>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    onclick="clearInsert()">Close</button>
+                                <button type="button" class="btn btn-primary" id="insertSubmit">Save changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- End Insert Modal -->
 
+                <!-- Edit Modal -->
+                <div class="modal fade" id="editModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Edit <div id="itemId"></div>
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="editItemName" class="form-label">Item Name</label>
+                                        <input type="text" class="form-control" id="editItemId" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editItemName" class="form-label">Item Name</label>
+                                        <input type="text" class="form-control" id="editItemName">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editItemPrice" class="form-label">Item Price</label>
+                                        <input type="number" class="form-control" id="editItemPrice">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editItemQuantity" class="form-label">Item Quantity</label>
+                                        <input type="number" class="form-control" id="editItemQuantity">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editItemDescription" class="form-label">Item Description</label>
+                                        <textarea class="form-control" id="editItemDescription"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="editSubmit">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Edit Modal -->
+
+                <!-- Get by ID Modal -->
+                <div class="modal fade" id="specificModal" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="specificModalLabel">Detail</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>ID : </td>
+                                        <td id="specificItemId"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name : </td>
+                                        <td id="specificItemName"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price : </td>
+                                        <td id="specificItemPrice"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantity : </td>
+                                        <td id="specificItemQuantity"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description : </td>
+                                        <td id="specificItemDescription"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Get by ID Modal -->
+                <!-- Button modal -->
+                <div class="d-flex  justify-content-between text-success ">
+                    <h1>Developer-Examination</h1>
+                    <button type="button" class="btn btn-primary" id="insertButton">
+                        Insert New Item
+                    </button>
+                </div>
+
                 <!-- Main Table -->
-                <div class="container mt-5">
+                <div class="container ">
                     <table id="data-table"
-                        class="table table-sm table-striped table-light table-bordered border-secondary">
-                        <thead>
+                        class="table table table-hover table-sm table-striped table-light table-bordered border-light">
+                        <thead class="table-dark">
                             <tr>
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
-                                <th>Description</th>
                                 <th>Spacific</th> <!-- เพิ่มคอลัมน์สำหรับปุ่ม -->
                             </tr>
                         </thead>
@@ -82,6 +167,7 @@
             </div>
         </div>
     </div>
+    <div id="footer"></div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
