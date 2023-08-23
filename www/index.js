@@ -1,4 +1,4 @@
-let endpoint = 'http://128.199.80.110:3000';
+let endpoint = 'http://localhost:3000';
 $(document).ready(function () {
     renderTable()
 });
@@ -30,7 +30,6 @@ const renderTable = async () => {
             //create info button
             row.addEventListener('click', (event) => {
                 if (event.target.cellIndex !== 3 && !!event.target.cellIndex) {
-                    console.log(event.target.cellIndex)
                     getItemById(item._id);
                 }
             })
@@ -51,7 +50,7 @@ const renderTable = async () => {
 //info button init
 const getItemById = async (_id) => {
     try {
-        const response = await fetch(endpoint + `/get_item_by_id?_id=${_id}`);
+        const response = await fetch(endpoint + `/get_item_by_id/${_id}`);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -75,7 +74,7 @@ const getItemById = async (_id) => {
 const editButtonClick = async (_id) => {
 
     try {
-        const response = await fetch(endpoint + `/get_item_by_id?_id=${_id}`);
+        const response = await fetch(endpoint + `/get_item_by_id/${_id}`);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -88,7 +87,6 @@ const editButtonClick = async (_id) => {
         document.querySelector('#editItemPrice').value = item.price;
         document.querySelector('#editItemQuantity').value = item.quantity;
         document.querySelector('#editItemDescription').value = item.description;
-        console.log('edit:', item);
         $("#editModal").modal("show");
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -110,13 +108,18 @@ const updateItem = async () => {
         description: document.querySelector('#editItemDescription').value
     };
 
+    if (!updatedItem.name || !updatedItem.price || !updatedItem.quantity || !updatedItem.description) {
+        alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+        return;
+    }
+
     try {
         const response = await fetch(endpoint + `/update_item`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id: itemId, ...updatedItem })
+            body: JSON.stringify({ _id: itemId, ...updatedItem })
         });
 
         if (!response.ok) {
@@ -134,7 +137,7 @@ const updateItem = async () => {
 //insert button init
 const insertButton = document.getElementById('insertButton');
 insertButton.addEventListener('click', () => {
-    console.log("insert");
+
     $("#insertModal").modal("show");
 });
 
@@ -168,7 +171,7 @@ insertSubmit.addEventListener('click', () => {
     })
         .then(response => response.json())
         .then(result => {
-            if (result.message === 'success') {
+            if (result.message === 'OK') {
 
                 $("#insertModal").modal("hide");
 
